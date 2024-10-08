@@ -1,0 +1,27 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8760/eureka/
+server:
+  port: 8333
+spring:
+  application:
+    name: Gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: passenger
+          uri: http://localhost:9099
+          predicates:
+            - Path=/passangerinfo/**
+        - id: flightservice
+          uri: http://localhost:9098
+          predicates:
+            - Path=/flights/**
+        - id: airline
+          uri: http://localhost:9097
+          predicates:
+            - Path=/airline/**
